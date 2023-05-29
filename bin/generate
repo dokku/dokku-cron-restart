@@ -32,9 +32,7 @@ def compile_readme(
                 prefix,
                 requirements_section(dokku_version),
                 installation_section(service, dokku_version),
-                commands_section(
-                    service, unimplemented
-                ),
+                commands_section(service, unimplemented),
                 usage_section(
                     service,
                     unimplemented,
@@ -147,9 +145,7 @@ def commands_section(service, unimplemented):
     return "\n".join(content)
 
 
-def usage_section(
-    service, unimplemented
-):
+def usage_section(service, unimplemented):
     """
     Generates a usage section
     """
@@ -157,9 +153,7 @@ def usage_section(
         [
             "## Usage",
             f"Help for any commands can be displayed by specifying the command as an argument to `{service}:help`. Plugin help output in conjunction with any files in the `docs/` folder is used to generate the plugin documentation. Please consult the `{service}:help` command for any undocumented commands.",
-            usage_intro(
-                service, unimplemented
-            ),
+            usage_intro(service, unimplemented),
         ]
     )
 
@@ -169,7 +163,7 @@ def usage_intro(service, unimplemented):
     Prints out usage for each of the detected functions
     """
     commands = glob.glob("subcommands/*")
-    commands = [command.removeprefix("subcommands/") for command in commands]
+    commands = [remove_prefix(command, "subcommands/") for command in commands]
     content = ["### Basic Usage"]
 
     return fetch_commands_content(
@@ -236,9 +230,7 @@ def parse_args(line):
     return " ".join(arguments)
 
 
-def command_help(
-    command, service, unimplemented
-):
+def command_help(command, service, unimplemented):
     """
     Returns the help content for a command
     """
@@ -454,6 +446,15 @@ def process_codeblock(codeblock_lines):
     """
     codeblock_lines = "\n".join(codeblock_lines)
     return f"```\n{codeblock_lines}\n```"
+
+
+def remove_prefix(text, prefix):
+    """
+    Remove a prefix for a string for versions of python lower than 3.9
+    """
+    if text.startswith(prefix):
+        return text[len(prefix) :]
+    return text  # or whatever
 
 
 def main():
