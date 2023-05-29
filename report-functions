@@ -14,7 +14,6 @@ cmd-report() {
   [[ "$1" == "$cmd" ]] && shift 1
   declare APP="$1" INFO_FLAG="$2"
   local INSTALLED_APPS
-  INSTALLED_APPS=$(dokku_apps)
 
   if [[ -n "$APP" ]] && [[ "$APP" == --* ]]; then
     INFO_FLAG="$APP"
@@ -26,6 +25,7 @@ cmd-report() {
   fi
 
   if [[ -z "$APP" ]]; then
+    INSTALLED_APPS=$(dokku_apps)
     for app in $INSTALLED_APPS; do
       cmd-report-single "$app" "$INFO_FLAG" | tee || true
     done
