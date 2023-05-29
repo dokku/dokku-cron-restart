@@ -14,7 +14,7 @@ trigger-cron-entries() {
   fi
 
   for app in $(dokku_apps "false" 2>/dev/null); do
-    schedule="$(fn-plugin-property-get "$PLUGIN_COMMAND_PREFIX" "$APP" "schedule")"
+    schedule="$(fn-plugin-property-get "$PLUGIN_COMMAND_PREFIX" "$app" "schedule")"
     if [[ -n "$schedule" ]]; then
       echo "$schedule;dokku ps:restart $app;/var/log/dokku/$PLUGIN_COMMAND_PREFIX-$app.log"
     fi
