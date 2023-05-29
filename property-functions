@@ -5,12 +5,12 @@ set -eo pipefail
 source "$PLUGIN_CORE_AVAILABLE_PATH/common/functions"
 source "$PLUGIN_CORE_AVAILABLE_PATH/common/property-functions"
 
-fn-report-schedule() {
+fn-report-cron-restart-schedule() {
   declare APP="$1"
 
   fn-plugin-property-get "$PLUGIN_COMMAND_PREFIX" "$APP" "schedule"
 }
 
-fn-report-global-schedule() {
+fn-report-cron-restart-global-schedule() {
   fn-plugin-property-get "$PLUGIN_COMMAND_PREFIX" "--global" "schedule"
 }
