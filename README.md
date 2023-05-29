@@ -35,7 +35,7 @@ Help for any commands can be displayed by specifying the command as an argument 
 dokku cron-restart:show-config 
 ```
 
-Shows the generated cron config:
+Shows the generated crontab config relevant to cron-restart:
 
 ```shell
 dokku cron-restart:show-config

@@ -4,7 +4,7 @@ set -eo pipefail
 [[ $DOKKU_TRACE ]] && set -x
 
 subcommand-show-config() {
-  #E shows the generated cron config relevant to $PLUGIN_COMMAND_PREFIX
+  #E shows the generated crontab config relevant to $PLUGIN_COMMAND_PREFIX
   #E dokku $PLUGIN_COMMAND_PREFIX:show-config
   declare desc="show the generated config"
   declare cmd="$PLUGIN_COMMAND_PREFIX:show-config"
