@@ -51,13 +51,11 @@ ci-dependencies: shellcheck bats readlink
 lint-setup:
 	@mkdir -p tmp/test-results/shellcheck tmp/shellcheck
 	@find . -not -path '*/\.*' -type f | xargs file | grep text | awk -F ':' '{ print $$1 }' | xargs head -n1 | egrep -B1 "bash" | grep "==>" | awk '{ print $$2 }' > tmp/shellcheck/test-files
-	@cat tests/shellcheck-exclude | sed -n -e '/^# SC/p' | cut -d' ' -f2 | paste -d, -s - > tmp/shellcheck/exclude
 
 lint: lint-setup
-	# these are disabled due to their expansive existence in the codebase. we should clean it up though
-	@cat tests/shellcheck-exclude | sed -n -e '/^# SC/p'
+	@cat .shellcheckrc | grep -v "^disable="
 	@echo linting...
-	@cat tmp/shellcheck/test-files | xargs shellcheck -e $(shell cat tmp/shellcheck/exclude) | tests/shellcheck-to-junit --output tmp/test-results/shellcheck/results.xml --files tmp/shellcheck/test-files --exclude $(shell cat tmp/shellcheck/exclude)
+	@cat tmp/shellcheck/test-files | xargs shellcheck | tests/shellcheck-to-junit --output tmp/test-results/shellcheck/results.xml --files tmp/shellcheck/test-files
 
 unit-tests:
 	@echo running unit tests...
