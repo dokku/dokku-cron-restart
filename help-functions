@@ -30,6 +30,9 @@ fn-help-all() {
   declare CMD="$1" SUBCOMMAND="$2"
   local CMD_OUTPUT BLUE BOLD FULL_OUTPUT NORMAL
   FULL_OUTPUT=true
+  if [[ "$SUBCOMMAND" == "help" ]]; then
+    SUBCOMMAND=""
+  fi
 
   if [[ "$CMD" == "$PLUGIN_COMMAND_PREFIX:help" ]] || [[ "$CMD" == "$PLUGIN_COMMAND_PREFIX" ]] || [[ "$CMD" == "$PLUGIN_COMMAND_PREFIX:default" ]]; then
     BOLD="$(fn-help-fancy-tput bold)"
