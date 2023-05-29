@@ -41,10 +41,12 @@ cmd-report-single() {
   fi
   verify_app_name "$APP"
   declare -a flag_map
-  declare -F | grep "fn-report-$PLUGIN_COMMAND_PREFIX" | while IFS= read -r line; do
+  flag_map=()
+  local fn_names="$(declare -F | grep "fn-report-$PLUGIN_COMMAND_PREFIX")"
+  while read -r line; do
     local fn_name="$(echo "$line" | cut -d' ' -f3)"
     flag_map+=("--$PLUGIN_COMMAND_PREFIX-${fn_name#"fn-report-$PLUGIN_COMMAND_PREFIX-"}: $("$fn_name" "$APP")")
-  done
+  done <<< "$fn_names"
 
   if [[ -z "$INFO_FLAG" ]]; then
     dokku_log_info2_quiet "${APP} $PLUGIN_COMMAND_PREFIX information"
