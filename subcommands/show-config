@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+source "$(dirname "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)")/config"
+set -eo pipefail
+[[ $DOKKU_TRACE ]] && set -x
+
+subcommand-show-config() {
+  #E shows the generated cron config
+  #E dokku $PLUGIN_COMMAND_PREFIX:show-config
+  declare desc="show the generated config"
+  declare cmd="$PLUGIN_COMMAND_PREFIX:show-config"
+  [[ "$1" == "$cmd" ]] && shift 1
+
+  sed -e '/^$/,$d' /var/spool/cron/crontabs/dokku
+  grep "cron-restart" /var/spool/cron/crontabs/dokku
+}
+
+subcommand-show-config "$@"
