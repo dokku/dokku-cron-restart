@@ -4,7 +4,6 @@ set -eo pipefail
 [[ $DOKKU_TRACE ]] && set -x
 source "$PLUGIN_CORE_AVAILABLE_PATH/common/functions"
 source "$PLUGIN_CORE_AVAILABLE_PATH/common/property-functions"
-source "$PLUGIN_AVAILABLE_PATH/$PLUGIN_COMMAND_PREFIX/internal-functions"
 if [[ -f "$PLUGIN_AVAILABLE_PATH/$PLUGIN_COMMAND_PREFIX/property-functions" ]]; then
   source "$PLUGIN_AVAILABLE_PATH/$PLUGIN_COMMAND_PREFIX/property-functions"
 fi
