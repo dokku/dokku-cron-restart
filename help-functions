@@ -173,8 +173,7 @@ fn-help-list-example() {
   # shellcheck disable=SC2034
   declare desc="return $PLUGIN_COMMAND_PREFIX plugin help content"
   cat <<help_list
-      $PLUGIN_SERVICE services
-      service-name
+      $PLUGIN_COMMAND_PREFIX
 help_list
 }
 
