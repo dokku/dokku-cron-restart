@@ -122,7 +122,6 @@ def commands_section(service, unimplemented):
     content = [
         "## Commands",
         "",
-        "```",
     ]
 
     subcommands = os.listdir("subcommands")
@@ -143,9 +142,8 @@ def commands_section(service, unimplemented):
     maxlen = min(max(map(len, command_list)), 50)
     for command, description in zip(command_list, descriptions):
         spaces = (maxlen - len(command)) * " "
-        content.append(f"{command}{spaces} # {description}")
+        content.append(f"    {command}{spaces} # {description}")
 
-    content.append("```")
     return "\n".join(content)
 
 

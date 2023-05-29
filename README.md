@@ -16,11 +16,9 @@ sudo dokku plugin:install https://github.com/dokku/dokku-cron-restart.git cron-r
 
 ## Commands
 
-```
-cron-restart:report <app> [--single-info-flag] # displays a cron-restart report for one or more apps
-cron-restart:set <app> <key> <value>           # set or clear a cron-restart property for an app
-cron-restart:show-config                       # show the generated config
-```
+    cron-restart:report <app> [--single-info-flag] # displays a cron-restart report for one or more apps
+    cron-restart:set <app> <key> <value>           # set or clear a cron-restart property for an app
+    cron-restart:show-config                       # show the generated config
 
 ## Usage
 
@@ -79,7 +77,7 @@ dokku cron-restart:set <app> <key> <value>
 
 Schedule a restart:
 
-> 'schedule' is a crontab expression, eg. '0 3 * * *'' for each day at 3am
+> 'schedule' is a crontab expression, eg. '0 3 * * *' for each day at 3am
 
 ```shell
 dokku cron-restart:set lollipop schedule '0 3 * * *'
