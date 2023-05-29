@@ -77,7 +77,7 @@ dokku cron-restart:set <app> <key> <value>
 
 Schedule a restart:
 
-> 'schedule' is a crontab expression, eg. '0 3 * * *' for each day at 3am
+> 'schedule' is a crontab expression, eg. `0 3 * * *` for each day at 3am
 
 ```shell
 dokku cron-restart:set lollipop schedule '0 3 * * *'
