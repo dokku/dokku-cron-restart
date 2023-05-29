@@ -10,8 +10,8 @@ subcommand-show-config() {
   declare cmd="$PLUGIN_COMMAND_PREFIX:show-config"
   [[ "$1" == "$cmd" ]] && shift 1
 
-  sed -e '/^$/,$d' /var/spool/cron/crontabs/dokku
-  grep "cron-restart" /var/spool/cron/crontabs/dokku
+  crontab -l | sed -e '/^$/,$d'
+  crontab -l | grep "/cron-restart"
 }
 
 subcommand-show-config "$@"
