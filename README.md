@@ -26,19 +26,6 @@ Help for any commands can be displayed by specifying the command as an argument 
 
 ### Basic Usage
 
-### show the generated config
-
-```shell
-# usage
-dokku cron-restart:show-config 
-```
-
-Shows the generated crontab config relevant to cron-restart:
-
-```shell
-dokku cron-restart:show-config
-```
-
 ### displays a cron-restart report for one or more apps
 
 ```shell
@@ -81,4 +68,17 @@ Schedule a restart:
 
 ```shell
 dokku cron-restart:set lollipop schedule '0 3 * * *'
+```
+
+### show the generated config
+
+```shell
+# usage
+dokku cron-restart:show-config
+```
+
+Shows the generated crontab config relevant to cron-restart:
+
+```shell
+dokku cron-restart:show-config
 ```

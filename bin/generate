@@ -164,6 +164,7 @@ def usage_intro(service, unimplemented):
     """
     commands = glob.glob("subcommands/*")
     commands = [remove_prefix(command, "subcommands/") for command in commands]
+    commands.sort()
     content = ["### Basic Usage"]
 
     return fetch_commands_content(
@@ -238,12 +239,13 @@ def command_help(command, service, unimplemented):
         return ""
 
     data = command_data(command, service)
+    command_usage = f"dokku {service}:{command} {data['arguments_string']}".strip()
     content = [
         f"### {data['description']}",
         "",
         "```shell",
         "# usage",
-        f"dokku {service}:{command} {data['arguments_string']}",
+        f"{command_usage}",
         "```",
     ]
 
