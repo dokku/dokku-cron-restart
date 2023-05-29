@@ -40,7 +40,7 @@ cmd-report-single() {
     INFO_FLAG=""
   fi
   verify_app_name "$APP"
-  declare -A flag_map
+  declare -a flag_map
   declare -F | grep "fn-report-$PLUGIN_COMMAND_PREFIX" | while IFS= read -r line; do
     local fn_name="$(echo "$line" | cut -d' ' -f3)"
     flag_map+=("--$PLUGIN_COMMAND_PREFIX-${fn_name#"fn-report-$PLUGIN_COMMAND_PREFIX-"}: $("$fn_name" "$APP")")
