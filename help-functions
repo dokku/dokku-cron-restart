@@ -78,7 +78,7 @@ fn-help-contents-subcommand() {
   cat "$SUBCOMMAND_ROOT/$SUBCOMMAND" >"$UNCLEAN_FILE"
 
   fn-help-subcommand-sanitize "$UNCLEAN_FILE" "$CLEAN_FILE"
-  if ! is_implemented_command "$SUBCOMMAND"; then
+  if ! fn-help-is-implemented-command "$SUBCOMMAND"; then
     return 1
   fi
 
@@ -151,6 +151,22 @@ fn-help-fancy-color() {
   fi
 
   echo "$@"
+}
+
+fn-help-is-implemented-command() {
+  declare desc="return true if value ($1) is in list (all other arguments)"
+  declare CMD="$1"
+  CMD="$(echo "$CMD" | cut -d ':' -f2)"
+
+  if [[ ${#PLUGIN_UNIMPLEMENTED_SUBCOMMANDS[@]} -eq 0 ]]; then
+    return 0
+  fi
+
+  local e
+  for e in "${PLUGIN_UNIMPLEMENTED_SUBCOMMANDS[@]}"; do
+    [[ "$e" == "$CMD" ]] && return 1
+  done
+  return 0
 }
 
 fn-help-list-example() {
