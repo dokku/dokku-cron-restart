@@ -43,8 +43,6 @@ fn-help-all() {
 
     echo -e "${BOLD}usage${NORMAL}: dokku ${PLUGIN_COMMAND_PREFIX}[:COMMAND]"
     echo ''
-    fn-help-list-example | column -c5 -t -s,
-    echo ''
     echo -e "dokku ${BOLD}${PLUGIN_COMMAND_PREFIX}${NORMAL} commands: (get help with ${CYAN}dokku ${PLUGIN_COMMAND_PREFIX}:help SUBCOMMAND${NORMAL})"
     echo ''
     fn-help-contents | sort | column -c2 -t -s,
@@ -167,14 +165,6 @@ fn-help-is-implemented-command() {
     [[ "$e" == "$CMD" ]] && return 1
   done
   return 0
-}
-
-fn-help-list-example() {
-  # shellcheck disable=SC2034
-  declare desc="return $PLUGIN_COMMAND_PREFIX plugin help content"
-  cat <<help_list
-      $PLUGIN_COMMAND_PREFIX
-help_list
 }
 
 fn-help-subcommand-args() {
