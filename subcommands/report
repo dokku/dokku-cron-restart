@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+source "$(dirname "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)")/config"
+set -eo pipefail
+[[ $DOKKU_TRACE ]] && set -x
+source "$PLUGIN_CORE_AVAILABLE_PATH/common/functions"
+source "$(dirname "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)")/report-functions"
+
+subcommand-report() {
+  #E get $PLUGIN_COMMAND_PREFIX report for all apps:
+  #E dokku $PLUGIN_COMMAND_PREFIX:report
+  #E get $PLUGIN_COMMAND_PREFIX report for an app:
+  #E dokku $PLUGIN_COMMAND_PREFIX:report lollipop
+  #E you can also retrieve a specific piece of report info via flags:
+  #E dokku $PLUGIN_COMMAND_PREFIX:report lollipop --schedule
+  #A app, app to run command against
+  #F --schedule, show the service configuration directory
+  declare desc="displays a $PLUGIN_COMMAND_PREFIX report for one or more apps"
+  declare cmd="$PLUGIN_COMMAND_PREFIX:report"
+  [[ "$1" == "$cmd" ]] && shift 1
+  declare APP="$1" INFO_FLAG="$2"
+
+  cmd-report "$@"
+}
+
+subcommand-report "$@"

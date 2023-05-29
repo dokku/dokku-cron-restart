@@ -1,0 +1,14 @@
+# These are disabled due to their expansive existence in the codebase. we should clean it up though.
+# See https://github.com/koalaman/shellcheck/wiki/ for more details on each error
+#
+# SC1090 - ShellCheck can't follow non-constant source. Use a directive to specify location
+#        - Usage: for sourcing function files throughout the codebase
+# SC1091 - Not following: FILE: does not exist (No such file or directory)
+#        - Usage: for sourcing function files throughout the codebase
+# SC2207 - Prefer mapfile or read -a to split command output (or quote to avoid splitting)
+#        - Usage: in help-functions when generating an arglist
+# SC2034 - VAR appears unused
+#        - Usage: for declaring desc and deprecated function variables
+# SC2155 - Declare and assign separately to avoid masking return values
+#        - Usage: throughout the codebase
+disable=SC1090,SC1091,SC2207,SC2034,SC2155

@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+source "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/config"
+source "$PLUGIN_CORE_AVAILABLE_PATH/common/property-functions"
+set -eo pipefail
+[[ $DOKKU_TRACE ]] && set -x
+
+trigger-install() {
+  declare desc="installs the $PLUGIN_COMMAND_PREFIX plugin"
+  declare trigger="install"
+
+  fn-plugin-property-setup "$PLUGIN_COMMAND_PREFIX"
+}
+
+trigger-install "$@"

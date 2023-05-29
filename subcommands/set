@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+source "$(dirname "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)")/config"
+set -eo pipefail
+[[ $DOKKU_TRACE ]] && set -x
+source "$PLUGIN_CORE_AVAILABLE_PATH/common/functions"
+source "$PLUGIN_CORE_AVAILABLE_PATH/common/property-functions"
+
+subcommand-set() {
+  #E schedule a restart
+  #E > 'schedule' is a crontab expression, eg. '0 3 * * *'' for each day at 3am
+  #E dokku $PLUGIN_COMMAND_PREFIX:set lollipop schedule '0 3 * * *'
+  #A app, app to run command against
+  #A key, a property to set
+  #A value, a value to set on the property
+  declare desc="set or clear a $PLUGIN_COMMAND_PREFIX property for an app"
+  declare cmd="$PLUGIN_COMMAND_PREFIX:set"
+  [[ "$1" == "$cmd" ]] && shift 1
+  declare APP="$1" KEY="$2" VALUE="$3"
+  local VALID_KEYS=("schedule")
+  [[ "$APP" == "--global" ]] || verify_app_name "$APP"
+
+  [[ -z "$KEY" ]] && dokku_log_fail "No key specified"
+
+  if ! fn-in-array "$KEY" "${VALID_KEYS[@]}"; then
+    dokku_log_fail "Invalid key specified, valid keys include: schedule"
+  fi
+
+  if [[ -n "$VALUE" ]]; then
+    dokku_log_info2_quiet "Setting ${KEY} to ${VALUE}"
+    fn-plugin-property-write "$PLUGIN_COMMAND_PREFIX" "$APP" "$KEY" "$VALUE"
+  else
+    dokku_log_info2_quiet "Unsetting ${KEY}"
+    fn-plugin-property-delete "$PLUGIN_COMMAND_PREFIX" "$APP" "$KEY"
+  fi
+
+  if [[ "$KEY" == "schedule" ]]; then
+    plugn trigger cron-write
+  fi
+}
+
+subcommand-set "$@"

@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+source "$(dirname "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)")/config"
+set -eo pipefail
+[[ $DOKKU_TRACE ]] && set -x
+
+trigger-cron-entries() {
+  schedule="$(fn-plugin-property-get "$PLUGIN_COMMAND_PREFIX" "--global" "schedule")"
+  if [[ -z "$schedule" ]]; then
+    echo "$schedule;dokku ps:restart --all;/var/log/dokku/$PLUGIN_COMMAND_PREFIX.log"
+  fi
+
+  for app in $(dokku_apps "false" 2>/dev/null); do
+    schedule="$(fn-plugin-property-get "$PLUGIN_COMMAND_PREFIX" "$APP" "schedule")"
+    if [[ -z "$schedule" ]]; then
+      echo "$schedule;dokku ps:restart $app;/var/log/dokku/$PLUGIN_COMMAND_PREFIX-$app.log"
+    fi
+  done
+}
+
+trigger-cron-entries "$@"

@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+source "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/config"
+set -eo pipefail
+[[ $DOKKU_TRACE ]] && set -x
+source "$PLUGIN_CORE_AVAILABLE_PATH/common/functions"
+source "$PLUGIN_CORE_AVAILABLE_PATH/common/property-functions"
+
+fn-report-schedule() {
+  declare APP="$1"
+
+  fn-plugin-property-get "$PLUGIN_COMMAND_PREFIX" "$APP" "schedule"
+}
+
+fn-report-global-schedule() {
+  fn-plugin-property-get "$PLUGIN_COMMAND_PREFIX" "--global" "schedule"
+}

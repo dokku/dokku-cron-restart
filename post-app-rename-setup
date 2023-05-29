@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+source "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/config"
+source "$PLUGIN_CORE_AVAILABLE_PATH/common/property-functions"
+set -eo pipefail
+[[ $DOKKU_TRACE ]] && set -x
+
+trigger-post-app-rename-setup() {
+  declare desc="updates settings for new app"
+  declare trigger="post-app-rename-setup"
+  declare OLD_APP="$1" NEW_APP="$2"
+
+  fn-plugin-property-clone "$PLUGIN_COMMAND_PREFIX" "$OLD_APP" "$NEW_APP"
+  fn-plugin-property-destroy "$PLUGIN_COMMAND_PREFIX" "$OLD_APP"
+}
+
+trigger-post-app-rename-setup "$@"
