@@ -31,6 +31,8 @@ jobs:
           python-version: '3.7.x'
 
       - run: make setup
+        env:
+          TRACE: 1
 
       - run: sudo sysctl -w vm.max_map_count=262144
 
