@@ -22,14 +22,17 @@ sudo dokku plugin:install https://github.com/dokku/dokku-cron-restart.git cron-r
 
 ## Usage
 
-Help for any commands can be displayed by specifying the command as an argument to `cron-restart:help`. Plugin help output in conjunction with any files in the `docs/` folder is used to generate the plugin documentation. Please consult the `cron-restart:help` command for any undocumented commands.
+Help for any commands can be displayed by specifying the command as an argument to `cron-restart:help`. 
 
-### Basic Usage
+Plugin help output in conjunction with any files in the `docs/` folder is used to generate the plugin documentation. 
 
-### displays a cron-restart report for one or more apps
+Please consult the `cron-restart:help` command for any undocumented commands.
+
+## Basic Usage
+
+### Display a cron-restart report for one or more apps
 
 ```shell
-# usage
 dokku cron-restart:report <app> [--single-info-flag]
 ```
 
@@ -37,13 +40,13 @@ flags:
 
 - `--schedule`: show the service configuration directory
 
-Get cron-restart report for all apps:
+### Get cron-restart report for all apps:
 
 ```shell
 dokku cron-restart:report
 ```
 
-Get cron-restart report for an app:
+### Get cron-restart report for an app:
 
 ```shell
 dokku cron-restart:report lollipop
@@ -55,14 +58,13 @@ You can also retrieve a specific piece of report info via flags:
 dokku cron-restart:report lollipop --schedule
 ```
 
-### set or clear a cron-restart property for an app
+### Set or clear a cron-restart property for an app
 
 ```shell
-# usage
 dokku cron-restart:set <app> <key> <value>
 ```
 
-Schedule a restart:
+### Schedule a restart:
 
 > 'value' is a crontab expression, eg. `0 3 * * *` for each day at 3am
 
@@ -70,14 +72,7 @@ Schedule a restart:
 dokku cron-restart:set lollipop schedule '0 3 * * *'
 ```
 
-### show the generated config
-
-```shell
-# usage
-dokku cron-restart:show-config
-```
-
-Shows the generated crontab config relevant to cron-restart:
+### Show the generated crontab config relevant to cron-restart:
 
 ```shell
 dokku cron-restart:show-config
