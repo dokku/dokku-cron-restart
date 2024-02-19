@@ -14,7 +14,7 @@ subcommand-report() {
   #E dokku $PLUGIN_COMMAND_PREFIX:report lollipop --schedule
   #A app, app to run command against
   #F --schedule, show the service configuration directory
-  declare desc="displays a $PLUGIN_COMMAND_PREFIX report for one or more apps"
+  declare desc="Displays a $PLUGIN_COMMAND_PREFIX report for one or more apps"
   declare cmd="$PLUGIN_COMMAND_PREFIX:report"
   [[ "$1" == "$cmd" ]] && shift 1
   declare APP="$1" INFO_FLAG="$2"
