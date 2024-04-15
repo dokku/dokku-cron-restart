@@ -12,7 +12,7 @@ subcommand-set() {
   #A app, app to run command against
   #A key, a property to set
   #A value, a value to set on the property
-  declare desc="set or clear a $PLUGIN_COMMAND_PREFIX property for an app"
+  declare desc="Set or clear a $PLUGIN_COMMAND_PREFIX property for an app"
   declare cmd="$PLUGIN_COMMAND_PREFIX:set"
   [[ "$1" == "$cmd" ]] && shift 1
   declare APP="$1" KEY="$2" VALUE="$3"
