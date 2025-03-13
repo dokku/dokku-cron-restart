@@ -13,7 +13,8 @@ jobs:
     runs-on: ubuntu-20.04
 
     steps:
-      - uses: "marvinpinto/action-automatic-releases@v1.2.1"
+      - name: Release
+        uses: softprops/action-gh-release@v2.2.1
         with:
-          repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          prerelease: false
+          generate_release_notes: true
+          make_latest: "true"
